@@ -2,15 +2,14 @@ package com.kmswoo.bms.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import com.kmswoo.bms.mapper.BookMapper;
 import com.kmswoo.bms.pojo.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLException;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -27,8 +26,13 @@ public class BookController {
 
 
     @RequestMapping("/addbook")
-    public String addBook() {
-        bookMapper.addBook(new Book("9787536455382", "球状闪电", "刘慈欣", "四川科学技术出版社"));
+    public String addBook(@RequestParam Map<String,Object> params, HttpServletResponse response) throws IOException {
+//        bookMapper.addBook(new Book("9787536455382", "球状闪电", "刘慈欣", "四川科学技术出版社"));
+        Book book = new Book(params.get("isbn").toString(),params.get("bookname").toString(),params.get("author").toString(),params.get("publisher").toString());
+        bookMapper.addBook(book);
+//        System.out.println(params);
+//        response.sendRedirect("/booklist");
+        response.sendRedirect("/booklist");
         return "ok";
     }
 
@@ -39,7 +43,7 @@ public class BookController {
     }
 
     @PostMapping("/deletebook")
-    public String deleteBookByAjax(@RequestBody JSONObject params) {
+    public String deleteBookByAjax(@RequestBody JSONObject params) throws IOException {
 
 //        System.out.println(params);
         for (Object i :

@@ -20,6 +20,7 @@ $("#btn_delete").click(function () {
         success:function (data) {
             if (data == "ok"){
                 alert("删除成功！");
+                window.location.href = window.location.href;
             }
         }
     })
