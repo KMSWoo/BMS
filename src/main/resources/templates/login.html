@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http: //www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>登录页面</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.min.css}" rel="stylesheet">
+    <style>
+        .login-box {
+            background-color: rgba(250, 250, 250, 0.7);
+        }
+
+        .login-box p:last-child {
+            margin-bottom: 0px;
+        }
+
+        .login-form .form-control {
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .login-form .has-feedback {
+            position: relative;
+        }
+
+        .login-form .has-feedback .form-control {
+            padding-left: 36px;
+        }
+
+        .login-form .has-feedback .mdi {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: auto;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            z-index: 4;
+            color: #dcdcdc;
+            display: block;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .login-form .has-feedback.row .mdi {
+            left: 15px;
+        }
+
+        .login-form .form-control::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .login-form .form-control:-moz-placeholder {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .login-form .form-control::-moz-placeholder {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .login-form .form-control:-ms-input-placeholder {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .login-form .custom-control-label::before {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: url([[@{/images/login-bg.jpeg}]]);
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body class="center-vh">
+<div class="login-box p-5 w-420 mb-0 mr-2 ml-2">
+    <div class="text-center mb-3">
+        <h1>图书管理系统</h1>
+    </div>
+    <form th:action="@{/login}" method="post" class="login-form">
+        <div class="form-group has-feedback">
+            <span class="mdi mdi-account" aria-hidden="true"></span>
+            <input type="text" name="username" class="form-control" id="username" placeholder="用户名">
+        </div>
+
+        <div class="form-group has-feedback">
+            <span class="mdi mdi-lock" aria-hidden="true"></span>
+            <input type="password" name="password" class="form-control" id="password" placeholder="密码">
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" th:if="${msg != null}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p th:text="${msg}"> </p>
+        </div>
+        <div class="form-group has-feedback row">
+            <div class="col-7">
+                <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
+                <input type="text" name="captcha" class="form-control" placeholder="验证码">
+            </div>
+            <div class="col-5 text-right">
+                <img th:src="@{/images/captcha.png}" class="pull-right" id="captcha" style="cursor: pointer;"
+                     onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" alt="captcha">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="rememberme">
+                <label class="custom-control-label not-user-select text-white" for="rememberme">5天内自动登录</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-block btn-primary" type="submit">立即登录</button>
+        </div>
+    </form>
+
+    <p class="text-center text-white">Copyright © 2021 All right reserved</p>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">;</script>
+</body>
+</html>

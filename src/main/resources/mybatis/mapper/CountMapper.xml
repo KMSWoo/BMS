@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmswoo.bms.mapper.CountMapper">
+    <select id="countBook" resultType="java.lang.String">
+        select count(*)
+        from book
+        where is_delete = 0
+    </select>
+
+    <select id="countUser" resultType="java.lang.String">
+        select count(*)
+        from user
+    </select>
+    <select id="countBorrow" resultType="java.lang.String">
+        select count(*)
+        from borrow
+    </select>
+
+
+</mapper>

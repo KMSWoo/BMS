@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http: //www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>图书管理系统</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/js/bootstrap-multitabs/multitabs.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}">
+</head>
+
+<body>
+
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+            </div>
+            <div class="lyear-layout-sidebar-info lyear-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav-drawer">
+                        <li class="nav-item active"><a class="multitabs" th:href="@{/main.html}"><i class="mdi mdi-home"></i>
+                            <span>欢迎 <strong>[[${session.loginUser}]]</strong></span></a>
+                        </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> <span>图书管理</span></a>
+                            <ul class="nav nav-subnav">
+                                <li><a class="multitabs" th:href="@{/booklist}">查询图书</a></li>
+                                <li><a class="multitabs" href="">增加图书</a></li>
+                                <li><a class="multitabs" href="">删除图书</a></li>
+                                <li><a class="multitabs" href="">修改图书</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-tools"></i> <span>用户管理</span></a>
+                            <ul class="nav nav-subnav">
+                                <li><a class="multitabs" href="">查询用户</a></li>
+                                <li><a class="multitabs" href="">增加用户</a></li>
+                                <li><a class="multitabs" href="">删除用户</a></li>
+                                <li><a class="multitabs" href="">修改用户</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> <span>个人信息</span></a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <p class="copyright">Copyright &copy; 2021 All rights reserved.</p>
+                </div>
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar">
+
+                <div class="navbar-left">
+                    <div class="lyear-aside-toggler">
+                        <span class="lyear-toggler-bar"></span>
+                        <span class="lyear-toggler-bar"></span>
+                        <span class="lyear-toggler-bar"></span>
+                    </div>
+                </div>
+
+                <ul class="navbar-right d-flex align-items-center">
+                    <!--切换主题配色-->
+                    <li class="dropdown dropdown-profile">
+                        <a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">
+                    <!--<img class="img-avatar img-avatar-48 m-r-10" src="images/users/avatar.jpg" alt="" />-->
+                            <span>[[${session.loginUser}]]</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a class="multitabs dropdown-item" data-url="lyear_pages_profile.html" href="javascript:void(0)"><i class="mdi mdi-account"></i> 个人信息</a>
+                            </li>
+                            <li>
+                                <a class="multitabs dropdown-item" data-url="lyear_pages_edit_pwd.html" href="javascript:void(0)"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/logout}"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div id="iframe-content"></div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-multitabs/multitabs.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.cookie.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.min.js}"></script>
+</body>
+</html>

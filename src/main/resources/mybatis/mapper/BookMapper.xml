@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kmswoo.bms.mapper.BookMapper">
+    <select id="queryBookList" resultType="Book">
+        select *
+        from book
+        where is_delete = 0
+    </select>
+
+    <select id="queryBookById" resultType="Book" parameterType="int">
+        select *
+        from book
+        where id = #{id}
+    </select>
+
+    <insert id="addBook" parameterType="Book" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into book (isbn, name, author, publisher)
+        VALUES (#{isbn}, #{name}, #{author}, #{publisher})
+    </insert>
+    <update id="deleteBook" parameterType="int">
+        update book
+        set is_delete = "1"
+        where id = #{id}
+    </update>
+</mapper>

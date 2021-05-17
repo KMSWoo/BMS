@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset=" utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>首页 - 图书后台管理系统</title>
+<!--    <link rel="icon" href="favicon.ico" type="image/ico">-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css">
+    <link href="css/style.min.css" rel="stylesheet">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid p-t-15" v-cloak id="app">
+
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body clearfix">
+                    <div class="flex-box">
+                        <span class="img-avatar img-avatar-48 bg-translucent"><i
+                                class="mdi mdi-library-books fs-22"></i></span>
+                        <span class="fs-22 lh-22">{{count.book}}</span>
+                    </div>
+                    <div class="text-right">图书总量</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body clearfix">
+                    <div class="flex-box">
+                        <span class="img-avatar img-avatar-48 bg-translucent"><i
+                                class="mdi mdi-account fs-22"></i></span>
+                        <span class="fs-22 lh-22">{{count.user}}</span>
+                    </div>
+                    <div class="text-right">用户总量</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card bg-success text-white">
+                <div class="card-body clearfix">
+                    <div class="flex-box">
+                        <span class="img-avatar img-avatar-48 bg-translucent"><i
+                                class="mdi mdi-read fs-22"></i></span>
+                        <span class="fs-22 lh-22">{{count.borrow}}</span>
+                    </div>
+                    <div class="text-right">借阅总量</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card bg-purple text-white">
+                <div class="card-body clearfix">
+                    <div class="flex-box">
+                        <span class="img-avatar img-avatar-48 bg-translucent"><i
+                                class="mdi mdi-book-plus fs-22"></i></span>
+                        <span class="fs-22 lh-22">{{count.book}}</span>
+                    </div>
+                    <div class="text-right">新增图书</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function getCountBook() {
+        return axios.get("/countbook");
+    }
+
+    function getCountUser() {
+        return axios.get("/countuser");
+    }
+
+    function getCountBorrow() {
+        return axios.get("/countborrow")
+    }
+
+
+        var vm = new Vue({
+        el: "#app",
+        data:function() {
+            return {
+                count:{}
+            }
+        },
+        created: function () {
+            axios.all([getCountBook(),getCountUser(),getCountBorrow()]).then(axios.spread(function (a,b,c) {
+                vm.count["book"] = a.data;
+                vm.count["user"] = b.data;
+                vm.count["borrow"] = c.data;
+                vm.$forceUpdate();
+            }))
+        },
+    });
+
+</script>
+</body>
+</html>
