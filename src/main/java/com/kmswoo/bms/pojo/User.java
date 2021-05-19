@@ -15,4 +15,10 @@ public class User {
     /* 0 for general user,1 for admin */
     private String is_admin;
     private String email;
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
 }

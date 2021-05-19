@@ -25,16 +25,16 @@ public class BookController {
     }
 
 
-    @RequestMapping("/addbook")
+    @PostMapping("/addbook")
     public String addBook(@RequestParam Map<String,Object> params, HttpServletResponse response) throws IOException {
 //        bookMapper.addBook(new Book("9787536455382", "球状闪电", "刘慈欣", "四川科学技术出版社"));
         Book book = new Book(params.get("isbn").toString(),params.get("bookname").toString(),params.get("author").toString(),params.get("publisher").toString());
         bookMapper.addBook(book);
 //        System.out.println(params);
-//        response.sendRedirect("/booklist");
         response.sendRedirect("/booklist");
         return "ok";
     }
+
 
     @RequestMapping("/deletebook/{id}")
     public String deleteBookById(@PathVariable int id){

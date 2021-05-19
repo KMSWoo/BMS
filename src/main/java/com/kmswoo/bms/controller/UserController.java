@@ -4,11 +4,12 @@ import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.Book;
 import com.kmswoo.bms.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -31,6 +32,14 @@ public class UserController {
     @GetMapping("/deleteuser/{id}")
     public String deleteUser(@PathVariable("id") int id){
         userMapper.deleteUser(id);
+        return "ok";
+    }
+
+    @PostMapping("/adduser")
+    public String addUser(@RequestParam Map<String,Object> params, HttpServletResponse response) throws IOException {
+        User user = new User(params.get("username").toString(),params.get("password").toString(),params.get("email").toString());
+        userMapper.addUser(user);
+        response.sendRedirect("/userlist");
         return "ok";
     }
 }
