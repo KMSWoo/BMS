@@ -36,12 +36,6 @@ public class BookController {
     }
 
 
-    @RequestMapping("/deletebook/{id}")
-    public String deleteBookById(@PathVariable int id){
-        bookMapper.deleteBook(id);
-        return "ok";
-    }
-
     @PostMapping("/deletebook")
     public String deleteBookByAjax(@RequestBody JSONObject params) throws IOException {
 
