@@ -52,7 +52,7 @@
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> <span>个人信息</span></a>
+                            <a th:href="@{/userprofile}"><i class="mdi mdi-file-outline"></i> <span>个人信息</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -86,7 +86,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li>
-                                <a class="multitabs dropdown-item" data-url="lyear_pages_profile.html" href="javascript:void(0)"><i class="mdi mdi-account"></i> 个人信息</a>
+                                <a class="multitabs dropdown-item"  th:href="@{/userprofile}"><i class="mdi mdi-account"></i> 个人信息</a>
                             </li>
                             <li>
                                 <a class="multitabs dropdown-item" data-url="lyear_pages_edit_pwd.html" href="javascript:void(0)"><i class="mdi mdi-lock-outline"></i> 修改密码</a>

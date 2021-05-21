@@ -13,9 +13,15 @@
         from user
         where id = #{id}
     </select>
+    <select id="queryUserByName" resultType="User">
+        select *
+        from user
+        where name = #{name}
+    </select>
 
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into user(name, password, email) VALUES (#{name}, #{password}, #{email})
+        insert into user(name, password, email)
+        VALUES (#{name}, #{password}, #{email})
 
     </insert>
     <delete id="deleteUser" parameterType="int">

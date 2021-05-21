@@ -13,6 +13,8 @@ public interface UserMapper {
 
     User queryUserById(int id);
 
+    User queryUserByName(String name);
+
     void addUser(User user);
 
     void deleteUser(int id);
