@@ -29,7 +29,6 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         //获取令牌
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
-
         try {
             //尝试登陆
             subject.login(usernamePasswordToken);
