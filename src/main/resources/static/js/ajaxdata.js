@@ -7,7 +7,7 @@ function getCheckBox() {
 }
 
 $("#btn_book_delete").click(function () {
-    $(".selected").hide();
+
     var checkID = getCheckBox();
     // alert(checkID);
     // alert(JSON.stringify(checkID));
@@ -20,6 +20,7 @@ $("#btn_book_delete").click(function () {
         success:function (data) {
             if (data == "ok"){
                 alert("删除成功！");
+                $(".selected").hide();
                 window.location.href = window.location.href;
             }
         }
@@ -27,7 +28,7 @@ $("#btn_book_delete").click(function () {
 })
 
 $("#btn_user_delete").click(function () {
-    $(".selected").hide();
+
     var checkID = getCheckBox();
     // alert(checkID);
     // alert(JSON.stringify(checkID));
@@ -40,6 +41,7 @@ $("#btn_user_delete").click(function () {
         success:function (data) {
             if (data == "ok"){
                 alert("删除成功！");
+                $(".selected").hide();
                 window.location.href = window.location.href;
             }
         }

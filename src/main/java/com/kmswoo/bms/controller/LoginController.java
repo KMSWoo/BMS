@@ -25,7 +25,7 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Model model,
                         HttpSession session) {
-        //获取当前用户
+        //获取当前请求主体
         Subject subject = SecurityUtils.getSubject();
         //获取令牌
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
@@ -33,15 +33,16 @@ public class LoginController {
         try {
             //尝试登陆
             subject.login(usernamePasswordToken);
-            return "/";
-        } catch (UnknownAccountException uae) {
-            model.addAttribute("msg","用户名不存在！");
-            return "login";
-        } catch (IncorrectCredentialsException ice) {
-            model.addAttribute("msg","密码错误！");
-            return "login";
+            return "admin";
+            //为了安全不提供详细错误信息
+//        } catch (UnknownAccountException uae) {
+//            model.addAttribute("msg","用户名不存在！");
+//            return "login";
+//        } catch (IncorrectCredentialsException ice) {
+//            model.addAttribute("msg","密码错误！");
+//            return "login";
         } catch (AuthenticationException ae) {
-            model.addAttribute("msg","发生错误，请稍后再试！");
+            model.addAttribute("msg","登陆失败！");
             return "login";
         }
     }
