@@ -6,27 +6,30 @@
     <select id="queryUserList" resultType="User">
         select *
         from user
+        where state = 0
     </select>
 
     <select id="queryUserById" resultType="User" parameterType="int">
         select *
         from user
         where id = #{id}
+          and state = 0
     </select>
     <select id="queryUserByName" resultType="User">
         select *
         from user
         where name = #{name}
+          and state = 0
     </select>
 
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into user(name, password, email)
-        VALUES (#{name}, #{password}, #{email})
+        insert into user(name, password, salt,email)
+        VALUES (#{name}, #{password}, #{salt}, #{email})
 
     </insert>
     <delete id="deleteUser" parameterType="int">
-        delete
-        from user
+        update book
+        set state = "1"
         where id = #{id}
     </delete>
 </mapper>

@@ -1,5 +1,7 @@
 package com.kmswoo.bms;
 
+import com.kmswoo.bms.mapper.UserMapper;
+import com.kmswoo.bms.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,5 +22,14 @@ public class MysqlTest {
         System.out.println(conn);
 
         conn.close();
+    }
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Test
+    void userMapperTest(){
+        User user = userMapper.queryUserByName("kms");
+        System.out.println(user);
     }
 }

@@ -5,6 +5,7 @@ import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.Book;
 import com.kmswoo.bms.pojo.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -44,10 +45,11 @@ public class UserController {
     @PostMapping("/adduser")
     public String addUser(@RequestParam Map<String,Object> params, HttpServletResponse response) throws IOException {
 
-        //生成md5,salt为username
-        String pwd=new Md5Hash(params.get("password").toString(),params.get("username").toString(),2).toString();
+        //生成md5,随机salt
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        String pwd=new Md5Hash(params.get("password").toString(),salt,2).toString();
 
-        User user = new User(params.get("username").toString(),pwd,params.get("email").toString());
+        User user = new User(params.get("username").toString(),pwd,salt,params.get("email").toString());
         userMapper.addUser(user);
         response.sendRedirect("/userlist");
         return "ok";
