@@ -45,9 +45,9 @@ public class UserController {
     public String addUser(@RequestParam Map<String,Object> params, HttpServletResponse response) throws IOException {
 
         //生成md5,salt为username
-        String pwd=new Md5Hash(params.get("password"),params.get("username")).toString();
+        String pwd=new Md5Hash(params.get("password").toString(),params.get("username").toString(),2).toString();
 
-        User user = new User(params.get("username").toString(),pwd.toString(),params.get("email").toString());
+        User user = new User(params.get("username").toString(),pwd,params.get("email").toString());
         userMapper.addUser(user);
         response.sendRedirect("/userlist");
         return "ok";

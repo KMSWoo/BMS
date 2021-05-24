@@ -34,12 +34,12 @@ public class LoginController {
             subject.login(usernamePasswordToken);
             return "admin";
             //为了安全不提供详细错误信息
-//        } catch (UnknownAccountException uae) {
-//            model.addAttribute("msg","用户名不存在！");
-//            return "login";
-//        } catch (IncorrectCredentialsException ice) {
-//            model.addAttribute("msg","密码错误！");
-//            return "login";
+        } catch (UnknownAccountException uae) {
+            model.addAttribute("msg","用户名不存在！");
+            return "login";
+        } catch (IncorrectCredentialsException ice) {
+            model.addAttribute("msg","密码错误！");
+            return "login";
         } catch (AuthenticationException ae) {
             model.addAttribute("msg","登陆失败！");
             return "login";
