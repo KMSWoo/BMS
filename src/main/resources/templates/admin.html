@@ -52,7 +52,10 @@
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a th:href="@{/userprofile}"><i class="mdi mdi-file-outline"></i> <span>个人信息</span></a>
+                            <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> <span>个人管理</span></a>
+                            <ul class="nav nav-subnav">
+                                <li><a class="multitabs" th:href="@{/userprofile}">个人信息</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>

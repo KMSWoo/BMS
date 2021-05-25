@@ -28,7 +28,7 @@
 
     </insert>
     <delete id="deleteUser" parameterType="int">
-        update book
+        update user
         set state = "1"
         where id = #{id}
     </delete>

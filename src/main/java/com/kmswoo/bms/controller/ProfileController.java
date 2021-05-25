@@ -2,6 +2,8 @@ package com.kmswoo.bms.controller;
 
 import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +21,11 @@ public class ProfileController {
 
     @GetMapping("/userprofile")
     public String userProfile (Model model, HttpSession session) throws IOException {
-        String name = session.getAttribute("loginUser").toString();
+        Subject subject = SecurityUtils.getSubject();
+        String name = subject.getPrincipal().toString();
         User user = userMapper.queryUserByName(name);
-//        System.out.println(user.toString());
         model.addAttribute("user",user);
-        return "userprofile::userprofile";
+        return "userprofile :: userprofile";
     }
 
 }
