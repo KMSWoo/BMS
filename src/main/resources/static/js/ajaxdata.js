@@ -12,15 +12,33 @@ $(function (){
     $("input[name='btSelectItem'],input[name='btSelectAll']").change(function (){
         var checked = $("input:checkbox:checked").val();
         if (checked){
-            $("#btn_del").attr("disabled",false);
+            $("#btn_del,#btn_add").attr("disabled",false);
         }else {
-            $("#btn_del").attr("disabled",true);
+            $("#btn_del,#btn_add").attr("disabled",true);
         }
     })
 
-    //ajax删除书本
-    $("#btn_book_delete").click(function () {
+    //清除特定class
+    function clearClass(){
+        var cls = ["btn_del","btn_add"];
+        for (c of cls){
+            if ($("#addclass").hasClass(c)){
+                if ($("#addclass").removeClass(c));
+            }
+        }
+    }
 
+    //绑定点击事件触发modal
+    $("#btn_del,#btn_add").click(function (){
+        //修改对应确认语和class
+        $("#reconfirm").text($(this).text());
+        clearClass();
+        $("#addclass").addClass($(this).attr("id"));
+        $("#manipulatebook").modal('show');
+    })
+
+    //ajax删除书(动态捕获事件)
+    $(document).on("click",".btn_del",function (){
         var checkID = getCheckBox();
 
         // alert(checkID);
@@ -30,7 +48,7 @@ $(function (){
         // }
 
         //点击确定后模态框隐藏
-        $('#deletebook').modal('hide');
+        $('#manipulatebook').modal('hide');
 
         $.ajax({
             type:"POST",
@@ -41,17 +59,43 @@ $(function (){
             success:function (data) {
                 if (data == "ok"){
                     // alert("删除成功！");
-                    $("#deletebookfeedback").modal('show');
+                    $("#bookfeedback").modal('show');
                     $(".selected").hide();
                     //会吞噬模态框
                     // window.location.href = window.location.href;
                 }else {
-                    $("#deletebookfeedback .modal-body").text("删除失败！");
-                    $('#deletebookfeedback').modal('show');
+                    $("#bookfeedback .modal-body").text("操作失败！");
+                    $('#bookfeedback').modal('show');
                 }
             }
         })
     })
+
+    //ajax删除书(动态捕获事件)
+    $(document).on("click",".btn_add",function (){
+        var checkID = getCheckBox();
+        $('#manipulatebook').modal('hide');
+
+        $.ajax({
+            type:"POST",
+            url:"/reservebook",
+            cache:'false',
+            data:JSON.stringify(checkID),
+            contentType: "application/json",
+            success:function (data) {
+                if (data == "ok"){
+                    $("#bookfeedback").modal('show');
+                    $(".selected").hide();
+                    //会吞噬模态框
+                    // window.location.href = window.location.href;
+                }else {
+                    $("#bookfeedback .modal-body").text("操作失败！");
+                    $('#bookfeedback').modal('show');
+                }
+            }
+        })
+    })
+
 
     $("#btn_user_delete").click(function () {
 

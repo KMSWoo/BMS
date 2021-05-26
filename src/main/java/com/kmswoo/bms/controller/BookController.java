@@ -3,7 +3,11 @@ package com.kmswoo.bms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kmswoo.bms.mapper.BookMapper;
+import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.Book;
+import com.kmswoo.bms.pojo.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,9 @@ public class BookController {
 
     @Autowired
     private BookMapper bookMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/book/{id}")
     public Book book(@PathVariable("id") int id) {
@@ -42,6 +49,19 @@ public class BookController {
         for (Object i :
                 params.values()) {
             bookMapper.deleteBook(Integer.parseInt(i.toString()));
+        }
+        return "ok";
+    }
+    @PostMapping("reservebook")
+    public String reserveBookByAjax(@RequestBody JSONObject params){
+
+        Subject subject = SecurityUtils.getSubject();
+        String name = subject.getPrincipal().toString();
+        User user = userMapper.queryUserByName(name);
+
+        for (Object i :
+                params.values()) {
+            bookMapper.reserveBook(Integer.parseInt(i.toString()),user.getId());
         }
         return "ok";
     }

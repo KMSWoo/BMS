@@ -6,9 +6,8 @@
     <select id="queryBookList" resultType="Book">
         select *
         from book
-        where is_delete = 0
+        where is_delete = 0 and state = 0
     </select>
-
     <select id="queryBookById" resultType="Book" parameterType="int">
         select *
         from book
@@ -24,4 +23,14 @@
         set is_delete = "1"
         where id = #{id}
     </update>
+    <insert id="reserveBook" parameterType="int">
+        insert into reserve (bid, uid)
+        VALUES (#{bid}, #{uid})
+    </insert>
+
+    <select id="queryReserveList" resultType="String">
+        select bid
+        from reserve
+        where uid = #{uid}
+    </select>
 </mapper>

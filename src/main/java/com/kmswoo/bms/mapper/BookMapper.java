@@ -20,4 +20,8 @@ public interface BookMapper {
 //    void updateBook(Book book);
 
     void deleteBook(int id);
+
+    void reserveBook(int bid,int uid);
+
+    List queryReserveList(int id);
 }
