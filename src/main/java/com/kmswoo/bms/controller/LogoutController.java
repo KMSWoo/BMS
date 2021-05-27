@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 public class LogoutController {
 
     @GetMapping("/logout")
-    public String logout(HttpSession session,SessionStatus sessionStatus){
-//        session.invalidate();
-//        sessionStatus.setComplete();
+    public String logout(){
         SecurityUtils.getSubject().logout();
         return "redirect:login";
     }

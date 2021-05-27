@@ -23,21 +23,25 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `isbn` varchar(13) NOT NULL,
-  `status` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 fot available,1 for be reserved,2 for be borrowed',
+  `state` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 fot available,1 for be reserved,2 for be borrowed',
   `name` varchar(50) NOT NULL,
   `author` varchar(50) NOT NULL,
   `publisher` varchar(20) NOT NULL,
   `is_delete` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 for no,1 for yes',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Data for the table `book` */
 
-insert  into `book`(`id`,`isbn`,`status`,`name`,`author`,`publisher`,`is_delete`) values 
+insert  into `book`(`id`,`isbn`,`state`,`name`,`author`,`publisher`,`is_delete`) values 
 (1,'9787536692930','0','三体','刘慈欣','重庆出版社','0'),
 (2,'9787536693968','0','三体Ⅱ','刘慈欣','重庆出版社','0'),
 (3,'9787229030933','0','三体Ⅲ','刘慈欣','重庆出版社','0'),
-(4,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','0'),
+(5,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','0'),
+(6,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','0'),
+(7,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','1'),
+(8,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','1'),
+(9,'9787536455382','0','球状闪电','刘慈欣','四川科学技术出版社','1');
 
 /*Table structure for table `borrow` */
 
@@ -69,9 +73,16 @@ CREATE TABLE `reserve` (
   KEY `r_uid` (`uid`),
   CONSTRAINT `r_bid` FOREIGN KEY (`bid`) REFERENCES `book` (`id`),
   CONSTRAINT `r_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `reserve` */
+
+insert  into `reserve`(`id`,`bid`,`uid`) values 
+(1,2,1),
+(2,3,1),
+(3,5,1),
+(4,5,1),
+(5,1,2);
 
 /*Table structure for table `user` */
 
@@ -81,16 +92,20 @@ CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `is_admin` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 for general user,1 for admin',
+  `role` varchar(50) NOT NULL DEFAULT 'user',
   `email` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `state` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 for ok,1 for deleted,2 for locked',
+  `salt` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`name`,`password`,`is_admin`,`email`) values 
-(1,'www','123','1','www@www.com'),
-(2,'kms','123','0','kms@kms.com');
+insert  into `user`(`id`,`name`,`password`,`role`,`email`,`state`,`salt`) values 
+(1,'www','bbdbb3be3d2b4352660d13a5e87e67ad','admin','www@www.com','0','5PjWpr1KdD5lfaEE5v1BNQ=='),
+(2,'kms','a1c813fbcdf1246495b9bd9d5c7941e1','user','kms@kms.com','0','rd+10tXH6khW/lyXw+/lMw=='),
+(5,'qwe','70342171b02b091b4fbf494a3d8f8898','guest','12@1212','1','kV1Wn6gzbpuCcEUzZJz3rA==');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

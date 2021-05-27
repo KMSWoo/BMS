@@ -2,11 +2,17 @@ package com.kmswoo.bms.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -31,6 +37,7 @@ public class ShiroConfig {
          */
         Map<String,String> filterMap = new LinkedHashMap<>();
         filterMap.put("/*","authc");
+
 
         //设置登录页
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -57,6 +64,40 @@ public class ShiroConfig {
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
+    }
+
+    /**
+     *  开启shiro aop注解支持.否则@RequiresRoles等注解无法生效
+     *  使用代理方式;
+     * @param //securityManager
+     * @return
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("SecurityManager") DefaultWebSecurityManager defaultWebSecurityManage){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManage);
+        return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * Shiro生命周期处理器
+     * @return
+     */
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+        return new LifecycleBeanPostProcessor();
+    }
+
+    /**
+     * 自动创建代理
+     * @return
+     */
+    @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
     }
 
 }

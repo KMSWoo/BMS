@@ -7,6 +7,7 @@ import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.Book;
 import com.kmswoo.bms.pojo.User;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
+@RequiresRoles("admin")
 public class BookController {
 
     @Autowired
@@ -39,7 +41,6 @@ public class BookController {
         return "ok";
     }
 
-
     @PostMapping("/deletebook")
     public String deleteBookByAjax(@RequestBody JSONObject params) throws IOException {
 
@@ -50,6 +51,8 @@ public class BookController {
         }
         return "ok";
     }
+
+    @RequiresRoles({"user","admin"})
     @PostMapping("reservebook")
     public String reserveBookByAjax(@RequestBody JSONObject params){
 

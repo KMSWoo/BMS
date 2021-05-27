@@ -5,6 +5,7 @@ import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.Book;
 import com.kmswoo.bms.pojo.User;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
+@RequiresRoles("admin")
 public class UserController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class UserController {
         User user = userMapper.queryUserById(id);
         return user;
     }
+
 
     @PostMapping("/deleteuser")
     public String deleteBookByAjax(@RequestBody JSONObject params) throws IOException {

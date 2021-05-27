@@ -13,7 +13,7 @@ public class User {
     private String name;
     private String password;
     //0 for general user,1 for admin
-    private String is_admin;
+    private String role;
     private String email;
     private String salt;
     //0 for ok,1 for deleted,2 for locked

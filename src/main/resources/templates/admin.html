@@ -37,12 +37,12 @@
                             <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> <span>图书管理</span></a>
                             <ul class="nav nav-subnav">
                                 <li><a class="multitabs" th:href="@{/booklist}">查询图书</a></li>
-                                <li><a class="multitabs" href="addbook.html">增加图书</a></li>
-                                <li><a class="multitabs" th:href="@{/booklist}">删除图书</a></li>
-                                <li><a class="multitabs" href="">修改图书</a></li>
+                                <li><a class="multitabs" href="addbook.html" shiro:hasRole="admin">增加图书</a></li>
+                                <li><a class="multitabs" th:href="@{/booklist}" shiro:hasRole="admin">删除图书</a></li>
+                                <li><a class="multitabs" href="" shiro:hasRole="admin">修改图书</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item nav-item-has-subnav">
+                        <li class="nav-item nav-item-has-subnav" shiro:hasRole="admin">
                             <a href="javascript:void(0)"><i class="mdi mdi-tools"></i> <span>用户管理</span></a>
                             <ul class="nav nav-subnav">
                                 <li><a class="multitabs" th:href="@{/userlist}">查询用户</a></li>

@@ -22,8 +22,7 @@ public class ProfileController {
     @GetMapping("/userprofile")
     public String userProfile (Model model, HttpSession session) throws IOException {
         Subject subject = SecurityUtils.getSubject();
-        String name = subject.getPrincipal().toString();
-        User user = userMapper.queryUserByName(name);
+        User user = (User) subject.getPrincipal();
         model.addAttribute("user",user);
         return "userprofile :: userprofile";
     }

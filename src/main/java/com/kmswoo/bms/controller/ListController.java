@@ -51,7 +51,6 @@ public class ListController {
             Book book = bookMapper.queryBookById(Integer.parseInt(bid));
             booklist.add(book);
         }
-        System.out.println(booklist);
         model.addAttribute("booklist",booklist);
         return "booklist :: booklist";
     }

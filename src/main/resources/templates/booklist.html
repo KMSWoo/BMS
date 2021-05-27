@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http: //www.thymeleaf.org" th:fragment="booklist">
+<html lang="zh" xmlns:th="http: //www.thymeleaf.org" th:fragment="booklist" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"  >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,13 +28,13 @@
                         <button id="btn_add" type="button" class="btn btn-primary m-r-5" disabled="true">
                             <span class="mdi mdi-plus" aria-hidden="true"></span>预定
                         </button>
-                        <button id="btn_edit" type="button" class="btn btn-success m-r-5">
+                        <button id="btn_edit" type="button" class="btn btn-success m-r-5" shiro:hasRole="admin">
                             <span class="mdi mdi-check" aria-hidden="true"></span>启用
                         </button>
-                        <button id="btn_edit" type="button" class="btn btn-warning m-r-5">
+                        <button id="btn_edit" type="button" class="btn btn-warning m-r-5" shiro:hasRole="admin">
                             <span class="mdi mdi-block-helper" aria-hidden="true"></span>禁用
                         </button>
-                        <button  type="button" class="btn btn-danger" disabled="true" id="btn_del">
+                        <button  type="button" class="btn btn-danger" disabled="true" id="btn_del" shiro:hasRole="admin">
                             <span class="mdi mdi-window-close" aria-hidden="true"  aria-disabled="false" ></span>删除
                         </button>
                         <div class="modal fade" id="manipulatebook" tabindex="-1" role="dialog" aria-labelledby="bookmodaltitle" aria-hidden="true">

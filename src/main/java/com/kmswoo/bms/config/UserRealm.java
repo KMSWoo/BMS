@@ -2,10 +2,14 @@ package com.kmswoo.bms.config;
 
 import com.kmswoo.bms.mapper.UserMapper;
 import com.kmswoo.bms.pojo.User;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +23,13 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 //        System.out.println("Authorization");
-        return null;
+        //设置角色
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+
+        info.addRole(user.getRole());
+        return info;
     }
 
     //认证
