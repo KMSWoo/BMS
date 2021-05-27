@@ -21,8 +21,6 @@ public class BookController {
     @Autowired
     private BookMapper bookMapper;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/book/{id}")
     public Book book(@PathVariable("id") int id) {
@@ -56,8 +54,8 @@ public class BookController {
     public String reserveBookByAjax(@RequestBody JSONObject params){
 
         Subject subject = SecurityUtils.getSubject();
-        String name = subject.getPrincipal().toString();
-        User user = userMapper.queryUserByName(name);
+        //user对象来自于simpleAuthenticationInfo
+        User user = (User) subject.getPrincipal();
 
         for (Object i :
                 params.values()) {

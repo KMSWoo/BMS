@@ -32,14 +32,13 @@ public class ShiroConfig {
         Map<String,String> filterMap = new LinkedHashMap<>();
         filterMap.put("/*","authc");
 
-
+        //设置登录页
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;
     }
 
     //DefaultWebSecurityManager
-
     @Bean(name = "SecurityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -54,6 +53,7 @@ public class ShiroConfig {
         return new UserRealm();
     }
 
+    //用来整合shiro thymeleaf
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();

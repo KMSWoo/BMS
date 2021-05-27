@@ -41,8 +41,8 @@ public class ListController {
     @GetMapping("/reservelist")
     public String reservelist(Model model) throws SQLException {
         Subject subject = SecurityUtils.getSubject();
-        String name = subject.getPrincipal().toString();
-        User user = userMapper.queryUserByName(name);
+        //user对象来自于simpleAuthenticationInfo
+        User user = (User) subject.getPrincipal();
 
         List<String> IDlist = bookMapper.queryReserveList(user.getId());
         List<Book> booklist = new ArrayList<>();

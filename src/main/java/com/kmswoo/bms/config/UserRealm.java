@@ -40,6 +40,6 @@ public class UserRealm extends AuthorizingRealm {
         //等同于
 //        String pwd = String.valueOf((char[]) usernamePasswordToken.getCredentials());
         String salt = user.getSalt();
-        return new SimpleAuthenticationInfo(name,pwd, ByteSource.Util.bytes(salt),getName());
+        return new SimpleAuthenticationInfo(user,pwd, ByteSource.Util.bytes(salt),getName());
     }
 }
